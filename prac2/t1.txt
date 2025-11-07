@@ -1,0 +1,23 @@
+// holas sou ups(a1,a2)
+//:ups: 
+//pups()
+//ups
+/*hola soy ups asterisco */
+/*hola soy ups asterisco
+con un \n */
+/*hola soy upps asterisco erroneo
+con un \n */
+ups (a1,a2)
+hola int ups()
+ upsi(a1,a2)
+ ups( a1
+ 
+ a23456()
+ups	(a1,a2)
+ups(a1,,a2)
+ups(,a1,,a2,,a3,,a4)
+ups:(a1,a2)
+ups(,a1)
+ups(a1,)
+ups((,a2)
+ups(ups(a1,a2),a2)

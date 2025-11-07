@@ -1,0 +1,7 @@
+Nombre,Edad,Ciudad,Clave
+Ana,23,Madrid,111:222
+Luis,45,Sevilla,abc
+, , , 
+Pedro,30,Valencia,999:1
+Maria, ,Zaragoza,sol
+
