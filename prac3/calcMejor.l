@@ -3,7 +3,7 @@
 #include "y.tab.h"
 %}
 %%
-"+"	{return(ADD);}
+"+"	{return(ADD);} // cambio
 "-"	{return(SUB);}
 "*"	{return(MUL);}
 "/"	{return(DIV);}
