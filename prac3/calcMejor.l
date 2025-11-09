@@ -7,7 +7,7 @@
 "-"	{return(SUB);}
 "*"	{return(MUL);}
 "/"	{return(DIV);}
-"("	{return(OP);} // prueba de comentario 2
+"("	{return(OP);}
 ")"	{return(CP);}
 [0-9]+	{yylval = atoi(yytext); return(NUMBER);}
 \n	{return(EOL);}
