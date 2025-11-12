@@ -66,7 +66,7 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 
 %}
 
-  //nuevo tipo de dato para yylval
+  //nuevo tipo de dato para yylval, convierte yylval (antes un int, a un char) (polimorfismo)
 %union{
 	char* nombre;
 }
