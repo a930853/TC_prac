@@ -6,7 +6,7 @@
 
 
 %%
-"graph ".*$	{return(GRAFO);}
+"graph "[0-9a-zA-Z]+	{return(GRAFO);}
 "{"	{return(INI);}
 "}"	{return(FIN);}
 [0-3][0-3][0-3]	{return(ESTADO);}
@@ -17,7 +17,6 @@
 ";"	{return(PCOMA);}
 \n	{return(EOL);}
 .	{return(yytext[0]); /* caracter inesperado */}
-
 %%
 					//ejemplo de uso de yylval para tokens a los que se
 					//les ha cambiado su valor semantico en th.y

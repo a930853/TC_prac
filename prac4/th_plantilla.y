@@ -83,18 +83,16 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 
 %%
 
-grafo : /* nada */
-	| GRAFO EOL INI EOL origen FIN
+grafo : GRAFO EOL INI EOL origen FIN EOL
 	;
 	
 origen : ESTADO FLECHA transiciones PCOMA EOL
-	| origen ESTADO FLECHA transiciones PCOMA EOL
+	| ESTADO FLECHA transiciones PCOMA EOL origen
 	;
 		
-transiciones : 	transiciones	ESTADO IPAR ESTADO FPAR PCOMA
-		| ESTADO IPAR ESTADO FPAR COMA
+transiciones : ESTADO IPAR ESTADO FPAR
+		| ESTADO IPAR ESTADO FPAR COMA transiciones
 		;
-
 %%
 
 int yyerror(char* s) {
