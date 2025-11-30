@@ -4,9 +4,9 @@
 #include <stdlib.h>
 extern int yylex();
 extern int yyerror();
-/*
+
 #define PALOS 3
-#define DIM = 27*27//DIMENSION DE LA MATRIZ DE ADYACENCIA
+#define DIM = 27//DIMENSION DE LA MATRIZ DE ADYACENCIA
 #define BUFF 4000
 
 //declarar la variable listaTr de tipo ListaTransiciones
@@ -38,7 +38,7 @@ void iniTabla(char* tabla[DIM][DIM]) {
  * CUIDADO: res DEBE SER UNA TABLA DISTINTA A t1 y t2
  * Por ejemplo, NO SE DEBE USAR en la forma:
  *           multiplicar(pot, t, pot); //mal
- *
+ */
 void multiplicar(char* t1[DIM][DIM], char* t2[DIM][DIM], char* res[DIM][DIM]) {
 	for (int i = 0; i < DIM; i++) {
 		for (int j = 0; j < DIM; j++) {
@@ -56,7 +56,7 @@ void multiplicar(char* t1[DIM][DIM], char* t2[DIM][DIM], char* res[DIM][DIM]) {
 
 /* 
  *Copia la tabla orig en la tabla copia
-*
+*/
 void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 	for (int i = 0; i < DIM; i++) {
 		for (int j = 0; j < DIM; j++) {
@@ -72,12 +72,12 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 %union{
 	char* nombre;
 }
-*/
+
 %}
 %token ESTADO INI FIN COMA PCOMA IPAR FPAR FLECHA GRAFO EOL
-%start	grafo
+%start grafo
 
-//%type<nombre> ID ... //lista de tokens y variables que su valor semantico,
+%type<nombre> ID ... //lista de tokens y variables que su valor semantico,
                      //recogido mediante yylval, es 'nombre' (ver union anterior).
 					 //Para estos tokens, yylval será de tipo char* en lugar de int.
 
@@ -99,7 +99,7 @@ int yyerror(char* s) {
 	printf("%s\n",s);
 	return -1;
 }
-/*
+
 int main() {
 	//inicializar lista transiciones
 	listaTr.total = 0;
@@ -133,7 +133,4 @@ int main() {
 	}
 
 	return error;
-}*/
-int main() {
-  yyparse();
 }
