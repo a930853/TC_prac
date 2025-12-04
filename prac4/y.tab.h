@@ -54,16 +54,16 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    ESTADO = 258,                  /* ESTADO  */
-    INI = 259,                     /* INI  */
-    FIN = 260,                     /* FIN  */
-    COMA = 261,                    /* COMA  */
-    PCOMA = 262,                   /* PCOMA  */
-    IPAR = 263,                    /* IPAR  */
-    FPAR = 264,                    /* FPAR  */
-    FLECHA = 265,                  /* FLECHA  */
-    GRAFO = 266,                   /* GRAFO  */
-    EOL = 267                      /* EOL  */
+    INI = 258,                     /* INI  */
+    FIN = 259,                     /* FIN  */
+    COMA = 260,                    /* COMA  */
+    PCOMA = 261,                   /* PCOMA  */
+    IPAR = 262,                    /* IPAR  */
+    FPAR = 263,                    /* FPAR  */
+    FLECHA = 264,                  /* FLECHA  */
+    GRAFO = 265,                   /* GRAFO  */
+    EOL = 266,                     /* EOL  */
+    ESTADO = 267                   /* ESTADO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -72,20 +72,29 @@ extern int yydebug;
 #define YYEOF 0
 #define YYerror 256
 #define YYUNDEF 257
-#define ESTADO 258
-#define INI 259
-#define FIN 260
-#define COMA 261
-#define PCOMA 262
-#define IPAR 263
-#define FPAR 264
-#define FLECHA 265
-#define GRAFO 266
-#define EOL 267
+#define INI 258
+#define FIN 259
+#define COMA 260
+#define PCOMA 261
+#define IPAR 262
+#define FPAR 263
+#define FLECHA 264
+#define GRAFO 265
+#define EOL 266
+#define ESTADO 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 72 "th_plantilla.y"
+
+	char* nombre;
+
+#line 95 "y.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

@@ -74,9 +74,9 @@
 #include <stdlib.h>
 extern int yylex();
 extern int yyerror();
-/*
+
 #define PALOS 3
-#define DIM = 27*27//DIMENSION DE LA MATRIZ DE ADYACENCIA
+#define DIM 27 //DIMENSION DE LA MATRIZ DE ADYACENCIA
 #define BUFF 4000
 
 //declarar la variable listaTr de tipo ListaTransiciones
@@ -108,7 +108,7 @@ void iniTabla(char* tabla[DIM][DIM]) {
  * CUIDADO: res DEBE SER UNA TABLA DISTINTA A t1 y t2
  * Por ejemplo, NO SE DEBE USAR en la forma:
  *           multiplicar(pot, t, pot); //mal
- *
+ */
 void multiplicar(char* t1[DIM][DIM], char* t2[DIM][DIM], char* res[DIM][DIM]) {
 	for (int i = 0; i < DIM; i++) {
 		for (int j = 0; j < DIM; j++) {
@@ -126,7 +126,7 @@ void multiplicar(char* t1[DIM][DIM], char* t2[DIM][DIM], char* res[DIM][DIM]) {
 
 /* 
  *Copia la tabla orig en la tabla copia
-*
+*/
 void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 	for (int i = 0; i < DIM; i++) {
 		for (int j = 0; j < DIM; j++) {
@@ -136,15 +136,8 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 }
 
 
-%}
 
-  //nuevo tipo de dato para yylval, convierte yylval (antes un int, a un char) (polimorfismo)
-%union{
-	char* nombre;
-}
-*/
-
-#line 148 "y.tab.c"
+#line 141 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -188,16 +181,16 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    ESTADO = 258,                  /* ESTADO  */
-    INI = 259,                     /* INI  */
-    FIN = 260,                     /* FIN  */
-    COMA = 261,                    /* COMA  */
-    PCOMA = 262,                   /* PCOMA  */
-    IPAR = 263,                    /* IPAR  */
-    FPAR = 264,                    /* FPAR  */
-    FLECHA = 265,                  /* FLECHA  */
-    GRAFO = 266,                   /* GRAFO  */
-    EOL = 267                      /* EOL  */
+    INI = 258,                     /* INI  */
+    FIN = 259,                     /* FIN  */
+    COMA = 260,                    /* COMA  */
+    PCOMA = 261,                   /* PCOMA  */
+    IPAR = 262,                    /* IPAR  */
+    FPAR = 263,                    /* FPAR  */
+    FLECHA = 264,                  /* FLECHA  */
+    GRAFO = 265,                   /* GRAFO  */
+    EOL = 266,                     /* EOL  */
+    ESTADO = 267                   /* ESTADO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -206,20 +199,29 @@ extern int yydebug;
 #define YYEOF 0
 #define YYerror 256
 #define YYUNDEF 257
-#define ESTADO 258
-#define INI 259
-#define FIN 260
-#define COMA 261
-#define PCOMA 262
-#define IPAR 263
-#define FPAR 264
-#define FLECHA 265
-#define GRAFO 266
-#define EOL 267
+#define INI 258
+#define FIN 259
+#define COMA 260
+#define PCOMA 261
+#define IPAR 262
+#define FPAR 263
+#define FLECHA 264
+#define GRAFO 265
+#define EOL 266
+#define ESTADO 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 72 "th_plantilla.y"
+
+	char* nombre;
+
+#line 222 "y.tab.c"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -239,16 +241,16 @@ enum yysymbol_kind_t
   YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
-  YYSYMBOL_ESTADO = 3,                     /* ESTADO  */
-  YYSYMBOL_INI = 4,                        /* INI  */
-  YYSYMBOL_FIN = 5,                        /* FIN  */
-  YYSYMBOL_COMA = 6,                       /* COMA  */
-  YYSYMBOL_PCOMA = 7,                      /* PCOMA  */
-  YYSYMBOL_IPAR = 8,                       /* IPAR  */
-  YYSYMBOL_FPAR = 9,                       /* FPAR  */
-  YYSYMBOL_FLECHA = 10,                    /* FLECHA  */
-  YYSYMBOL_GRAFO = 11,                     /* GRAFO  */
-  YYSYMBOL_EOL = 12,                       /* EOL  */
+  YYSYMBOL_INI = 3,                        /* INI  */
+  YYSYMBOL_FIN = 4,                        /* FIN  */
+  YYSYMBOL_COMA = 5,                       /* COMA  */
+  YYSYMBOL_PCOMA = 6,                      /* PCOMA  */
+  YYSYMBOL_IPAR = 7,                       /* IPAR  */
+  YYSYMBOL_FPAR = 8,                       /* FPAR  */
+  YYSYMBOL_FLECHA = 9,                     /* FLECHA  */
+  YYSYMBOL_GRAFO = 10,                     /* GRAFO  */
+  YYSYMBOL_EOL = 11,                       /* EOL  */
+  YYSYMBOL_ESTADO = 12,                    /* ESTADO  */
   YYSYMBOL_YYACCEPT = 13,                  /* $accept  */
   YYSYMBOL_grafo = 14,                     /* grafo  */
   YYSYMBOL_origen = 15,                    /* origen  */
@@ -580,7 +582,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   20
+#define YYLAST   23
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  13
@@ -589,7 +591,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  6
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  22
+#define YYNSTATES  26
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   267
@@ -655,8 +657,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "\"invalid token\"", "ESTADO", "INI", "FIN",
-  "COMA", "PCOMA", "IPAR", "FPAR", "FLECHA", "GRAFO", "EOL", "$accept",
+  "\"end of file\"", "error", "\"invalid token\"", "INI", "FIN", "COMA",
+  "PCOMA", "IPAR", "FPAR", "FLECHA", "GRAFO", "EOL", "ESTADO", "$accept",
   "grafo", "origen", "transiciones", YY_NULLPTR
 };
 
@@ -667,7 +669,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-12)
+#define YYPACT_NINF (-16)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -681,9 +683,9 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -11,   -10,     1,    -1,   -12,    -8,     2,    -4,     3,     4,
-      -3,     5,     7,   -12,     8,    -2,     6,     2,    10,   -12,
-       4,   -12
+      -9,    -8,     4,     2,   -16,    -5,    -4,     3,    -2,    -1,
+       5,     6,     0,     7,   -16,    -1,     8,    10,    11,    14,
+     -16,    12,     9,   -16,    -1,   -16
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -692,20 +694,20 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     0,     1,     0,     0,     0,     0,     0,
-       0,     0,     0,     2,     0,     0,     0,     3,     5,     4,
-       0,     6
+       0,     0,     0,     0,     2,     0,     0,     0,     0,     0,
+       3,     0,     5,     4,     0,     6
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,   -12,    -5,     0
+     -16,   -16,   -16,   -15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     8,    12
+       0,     2,     8,    13
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -713,25 +715,25 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     4,     3,     5,     6,     7,     9,    11,    10,    13,
-      17,    16,    19,    14,    15,    18,    20,     0,     0,     0,
-      21
+      18,     1,    10,     3,     4,     5,     6,    16,     7,    25,
+      11,    12,     9,    17,    24,    15,    14,    21,     0,     0,
+      19,    20,    22,    23
 };
 
 static const yytype_int8 yycheck[] =
 {
-      11,     0,    12,     4,    12,     3,    10,     3,     5,    12,
-      12,     3,    17,     8,     7,     9,     6,    -1,    -1,    -1,
-      20
+      15,    10,     4,    11,     0,     3,    11,     7,    12,    24,
+      12,    12,     9,     6,     5,     9,    11,     6,    -1,    -1,
+      12,    11,     8,    11
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    11,    14,    12,     0,     4,    12,     3,    15,    10,
-       5,     3,    16,    12,     8,     7,     3,    12,     9,    15,
-       6,    16
+       0,    10,    14,    11,     0,     3,    11,    12,    15,     9,
+       4,    12,    12,    16,    11,     9,     7,     6,    16,    12,
+      11,     6,     8,    11,     5,    16
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -1207,7 +1209,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1211 "y.tab.c"
+#line 1213 "y.tab.c"
 
       default: break;
     }
@@ -1407,7 +1409,7 @@ int yyerror(char* s) {
 	printf("%s\n",s);
 	return -1;
 }
-/*
+
 int main() {
 	//inicializar lista transiciones
 	listaTr.total = 0;
@@ -1416,10 +1418,10 @@ int main() {
 	iniTabla(tablaTr);
 
 	//nodo inicial
-	char* estadoIni = ...;
+	char* estadoIni = "000";
 
 	//nodo final
-	char* estadoFin = ...;
+	char* estadoFin = "212";
 	
 	int error = yyparse();
 
@@ -1427,21 +1429,18 @@ int main() {
 	if (error == 0) {
 		//matriz para guardar la potencia
 		char* pot[DIM][DIM];
-		copiar(tablaTr,pot)
+		copiar(tablaTr,pot);
 		//calcular movimientos de estadoIni a estadoFin
 		//calculando las potencias sucesivas de tablaTr
-		...
-		...
+		//...
+		//...
 
 
 		printf("Nodo inicial  : %s\n", estadoIni);
 		//rellenar los ... con los indices adecuados a vuestro codigo
-		printf("Movimientos   : %s\n", pot[...][...]);
+		//printf("Movimientos   : %s\n", pot[...][...]);
 		printf("Nodo final    : %s\n", estadoFin);
 	}
 
 	return error;
-}*/
-int main() {
-  yyparse();
 }

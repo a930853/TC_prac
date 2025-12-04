@@ -23,7 +23,7 @@ calclist : /* nada */
 			yyerror("syntax error");
         		YYERROR;
 		}
-				}
+	}
 	| calclist exp PCOMAB EOL {
 		int ini = $2;
 		int fin = 0;

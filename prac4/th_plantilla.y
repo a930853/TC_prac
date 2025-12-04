@@ -6,7 +6,7 @@ extern int yylex();
 extern int yyerror();
 
 #define PALOS 3
-#define DIM = 27//DIMENSION DE LA MATRIZ DE ADYACENCIA
+#define DIM 27 //DIMENSION DE LA MATRIZ DE ADYACENCIA
 #define BUFF 4000
 
 //declarar la variable listaTr de tipo ListaTransiciones
@@ -66,6 +66,19 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 }
 
 
+// Función que convierte un nodo tipo "210" en un índice numérico en base 3 (PALOS)
+int convertirNodo(const char* nodo) {
+    int valor = 0;
+    for (int i = 0; nodo[i] != '\0'; i++) {
+        valor = valor * PALOS + (nodo[i] - '0'); // suma en base PALOS
+    }
+    return valor;
+}
+
+
+int fila;
+int col;
+
 %}
 
   //nuevo tipo de dato para yylval, convierte yylval (antes un int, a un char) (polimorfismo)
@@ -73,11 +86,11 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 	char* nombre;
 }
 
-%}
-%token ESTADO INI FIN COMA PCOMA IPAR FPAR FLECHA GRAFO EOL
+
+%token INI FIN COMA PCOMA IPAR FPAR FLECHA GRAFO EOL
 %start grafo
 
-%type<nombre> ID ... //lista de tokens y variables que su valor semantico,
+%token<nombre> ESTADO //lista de tokens y variables que su valor semantico,
                      //recogido mediante yylval, es 'nombre' (ver union anterior).
 					 //Para estos tokens, yylval será de tipo char* en lugar de int.
 
@@ -86,13 +99,41 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 grafo : GRAFO EOL INI EOL origen FIN EOL
 	;
 	
-origen : ESTADO FLECHA transiciones PCOMA EOL
-	| ESTADO FLECHA transiciones PCOMA EOL origen
+origen : ESTADO FLECHA transiciones PCOMA EOL {
+		listaTr.nodoOrig = $1; // ESTADO origen ($1)
+	
+		fila = convertirNodo(listaTr.nodoOrig);
+		for(int i=0; i<listaTr.total;i++) {
+			col = convertirNodo(listaTr.nodosFin[i]); // ESTADO destino/fin
+			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
+		}
+		// reiniciamos la lista temporal para el siguiente nodo
+		listaTr.total = 0;
+	}
+	| origen ESTADO FLECHA transiciones PCOMA EOL {
+		listaTr.nodoOrig = $2; // ESTADO origen ($2)
+	
+		fila = convertirNodo(listaTr.nodoOrig);
+		for(int i=0; i<listaTr.total;i++) {
+			col = convertirNodo(listaTr.nodosFin[i]); // ESTADO destino/fin
+			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
+		}
+		// reiniciamos la lista temporal para el siguiente nodo
+		listaTr.total = 0;
+	}
 	;
 		
-transiciones : ESTADO IPAR ESTADO FPAR
-		| ESTADO IPAR ESTADO FPAR COMA transiciones
-		;
+transiciones : ESTADO IPAR ESTADO FPAR {
+		listaTr.nodosFin[listaTr.total] = $1; // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = $3; // etiqueta del arco	
+		listaTr.total++;	
+	}
+	| ESTADO IPAR ESTADO FPAR COMA transiciones {
+		listaTr.nodosFin[listaTr.total] = $1; // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = $3; // etiqueta del arco	
+		listaTr.total++;
+	}
+	;
 %%
 
 int yyerror(char* s) {
@@ -108,10 +149,10 @@ int main() {
 	iniTabla(tablaTr);
 
 	//nodo inicial
-	char* estadoIni = ...;
+	char* estadoIni = "000";
 
 	//nodo final
-	char* estadoFin = ...;
+	char* estadoFin = "212";
 	
 	int error = yyparse();
 
@@ -119,16 +160,16 @@ int main() {
 	if (error == 0) {
 		//matriz para guardar la potencia
 		char* pot[DIM][DIM];
-		copiar(tablaTr,pot)
+		copiar(tablaTr,pot);
 		//calcular movimientos de estadoIni a estadoFin
 		//calculando las potencias sucesivas de tablaTr
-		...
-		...
+		//...
+		//...
 
 
 		printf("Nodo inicial  : %s\n", estadoIni);
 		//rellenar los ... con los indices adecuados a vuestro codigo
-		printf("Movimientos   : %s\n", pot[...][...]);
+		//printf("Movimientos   : %s\n", pot[...][...]);
 		printf("Nodo final    : %s\n", estadoFin);
 	}
 
