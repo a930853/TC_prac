@@ -65,17 +65,6 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 	}
 }
 
-
-// Función que convierte un nodo tipo "210" en un índice numérico en base 3 (PALOS)
-int convertirNodo(const char* nodo) {
-    int valor = 0;
-    for (int i = 0; nodo[i] != '\0'; i++) {
-        valor = valor * PALOS + (nodo[i] - '0'); // suma en base PALOS
-    }
-    return valor;
-}
-
-
 int fila;
 int col;
 
@@ -100,22 +89,22 @@ grafo : GRAFO EOL INI EOL origen FIN EOL
 	;
 	
 origen : ESTADO FLECHA transiciones PCOMA EOL {
-		listaTr.nodoOrig = $1; // ESTADO origen ($1)
+		listaTr.nodoOrig = strdup($1); // ESTADO origen ($1)
 	
-		fila = convertirNodo(listaTr.nodoOrig);
+		fila = (int) strtol(listaTr.nodoOrig,NULL,PALOS);
 		for(int i=0; i<listaTr.total;i++) {
-			col = convertirNodo(listaTr.nodosFin[i]); // ESTADO destino/fin
+			col = (int) strtol(listaTr.nodosFin[i],NULL,PALOS); // ESTADO destino/fin
 			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
 		}
 		// reiniciamos la lista temporal para el siguiente nodo
 		listaTr.total = 0;
 	}
 	| origen ESTADO FLECHA transiciones PCOMA EOL {
-		listaTr.nodoOrig = $2; // ESTADO origen ($2)
+		listaTr.nodoOrig = strdup($2); // ESTADO origen ($2)
 	
-		fila = convertirNodo(listaTr.nodoOrig);
+		fila = (int) strtol(listaTr.nodoOrig,NULL,PALOS);
 		for(int i=0; i<listaTr.total;i++) {
-			col = convertirNodo(listaTr.nodosFin[i]); // ESTADO destino/fin
+			col = (int) strtol(listaTr.nodosFin[i],NULL,PALOS); // ESTADO destino/fin
 			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
 		}
 		// reiniciamos la lista temporal para el siguiente nodo
@@ -124,13 +113,13 @@ origen : ESTADO FLECHA transiciones PCOMA EOL {
 	;
 		
 transiciones : ESTADO IPAR ESTADO FPAR {
-		listaTr.nodosFin[listaTr.total] = $1; // ESTADO destino/fin
-		listaTr.etiquetas[listaTr.total] = $3; // etiqueta del arco	
+		listaTr.nodosFin[listaTr.total] = strdup($1); // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = strdup($3); // etiqueta del arco	
 		listaTr.total++;	
 	}
 	| ESTADO IPAR ESTADO FPAR COMA transiciones {
-		listaTr.nodosFin[listaTr.total] = $1; // ESTADO destino/fin
-		listaTr.etiquetas[listaTr.total] = $3; // etiqueta del arco	
+		listaTr.nodosFin[listaTr.total] = strdup($1); // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = strdup($3); // etiqueta del arco	
 		listaTr.total++;
 	}
 	;
