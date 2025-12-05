@@ -149,18 +149,41 @@ int main() {
 	if (error == 0) {
 		//matriz para guardar la potencia
 		char* pot[DIM][DIM];
+		//matriz para guardar la potencia k-1
+		char* anterior[DIM][DIM];
+		
+		//convertimos estados en índices 
+		int eIni = strtol(estadoIni,NULL,PALOS);
+		int eFin = strtol(estadoFin,NULL,PALOS);
+		
+		//potencia 1 -> C
 		copiar(tablaTr,pot);
-		//calcular movimientos de estadoIni a estadoFin
-		//calculando las potencias sucesivas de tablaTr
-		//...
-		//...
+		
+		//potencia k-1
+		copiar(tablaTr,anterior);
+		
+		int k = 1;
+		
+		// buscamos la potencia mínima tal que pot[i][j] != ""
+		while (strcmp(pot[eIni][eFin], "") == 0 && k < DIM) {
+        		multiplicar(tablaTr, anterior, pot);  // pot = C * C^(k-1)
+        		copiar(pot, anterior);                 // anterior = C^k
+        		k++;
+   		}
+		
 
 
 		printf("Nodo inicial  : %s\n", estadoIni);
-		//rellenar los ... con los indices adecuados a vuestro codigo
-		//printf("Movimientos   : %s\n", pot[...][...]);
+		
+		// si existe camino entre los dos nodos sacaremos por pantalla su longitud y los movimientos
+		if (strcmp(pot[eIni][eFin], "") != 0) {
+        		printf("Longitud mínima k = %d\n", k);
+        		printf("Movimientos: %s\n", pot[eIni][eFin]);
+    		} else {
+        		printf("No existe camino entre esos nodos.\n");
+    		}
+    		
 		printf("Nodo final    : %s\n", estadoFin);
 	}
-
 	return error;
 }

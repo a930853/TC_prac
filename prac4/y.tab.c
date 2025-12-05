@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "th_plantilla.y"
+#line 1 "th.y"
 
 #include <stdio.h>
 #include <string.h>
@@ -135,9 +135,11 @@ void copiar(char* orig[DIM][DIM], char* copia[DIM][DIM]) {
 	}
 }
 
+int fila;
+int col;
 
 
-#line 141 "y.tab.c"
+#line 143 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -214,11 +216,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 72 "th_plantilla.y"
+#line 74 "th.y"
 
 	char* nombre;
 
-#line 222 "y.tab.c"
+#line 224 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -641,7 +643,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    86,    86,    89,    90,    93,    94
+       0,    88,    88,    91,   102,   115,   120
 };
 #endif
 
@@ -1208,8 +1210,60 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
+  case 3: /* origen: ESTADO FLECHA transiciones PCOMA EOL  */
+#line 91 "th.y"
+                                              {
+		listaTr.nodoOrig = strdup((yyvsp[-4].nombre)); // ESTADO origen ($1)
+	
+		fila = (int) strtol(listaTr.nodoOrig,NULL,PALOS);
+		for(int i=0; i<listaTr.total;i++) {
+			col = (int) strtol(listaTr.nodosFin[i],NULL,PALOS); // ESTADO destino/fin
+			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
+		}
+		// reiniciamos la lista temporal para el siguiente nodo
+		listaTr.total = 0;
+	}
+#line 1227 "y.tab.c"
+    break;
 
-#line 1213 "y.tab.c"
+  case 4: /* origen: origen ESTADO FLECHA transiciones PCOMA EOL  */
+#line 102 "th.y"
+                                                      {
+		listaTr.nodoOrig = strdup((yyvsp[-4].nombre)); // ESTADO origen ($2)
+	
+		fila = (int) strtol(listaTr.nodoOrig,NULL,PALOS);
+		for(int i=0; i<listaTr.total;i++) {
+			col = (int) strtol(listaTr.nodosFin[i],NULL,PALOS); // ESTADO destino/fin
+			tablaTr[fila][col] = listaTr.etiquetas[i]; // transición de fila -> col
+		}
+		// reiniciamos la lista temporal para el siguiente nodo
+		listaTr.total = 0;
+	}
+#line 1243 "y.tab.c"
+    break;
+
+  case 5: /* transiciones: ESTADO IPAR ESTADO FPAR  */
+#line 115 "th.y"
+                                       {
+		listaTr.nodosFin[listaTr.total] = strdup((yyvsp[-3].nombre)); // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = strdup((yyvsp[-1].nombre)); // etiqueta del arco	
+		listaTr.total++;	
+	}
+#line 1253 "y.tab.c"
+    break;
+
+  case 6: /* transiciones: ESTADO IPAR ESTADO FPAR COMA transiciones  */
+#line 120 "th.y"
+                                                    {
+		listaTr.nodosFin[listaTr.total] = strdup((yyvsp[-5].nombre)); // ESTADO destino/fin
+		listaTr.etiquetas[listaTr.total] = strdup((yyvsp[-3].nombre)); // etiqueta del arco	
+		listaTr.total++;
+	}
+#line 1263 "y.tab.c"
+    break;
+
+
+#line 1267 "y.tab.c"
 
       default: break;
     }
@@ -1402,7 +1456,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 96 "th_plantilla.y"
+#line 126 "th.y"
 
 
 int yyerror(char* s) {
@@ -1429,18 +1483,41 @@ int main() {
 	if (error == 0) {
 		//matriz para guardar la potencia
 		char* pot[DIM][DIM];
+		//matriz para guardar la potencia k-1
+		char* anterior[DIM][DIM];
+		
+		//convertimos estados en índices 
+		int eIni = strtol(estadoIni,NULL,PALOS);
+		int eFin = strtol(estadoFin,NULL,PALOS);
+		
+		//potencia 1 -> C
 		copiar(tablaTr,pot);
-		//calcular movimientos de estadoIni a estadoFin
-		//calculando las potencias sucesivas de tablaTr
-		//...
-		//...
+		
+		//potencia k-1
+		copiar(tablaTr,anterior);
+		
+		int k = 1;
+		
+		// buscamos la potencia mínima tal que pot[i][j] != ""
+		while (strcmp(pot[eIni][eFin], "") == 0 && k < DIM) {
+        		multiplicar(tablaTr, anterior, pot);  // pot = C * C^(k-1)
+        		copiar(pot, anterior);                 // anterior = C^k
+        		k++;
+   		}
+		
 
 
 		printf("Nodo inicial  : %s\n", estadoIni);
-		//rellenar los ... con los indices adecuados a vuestro codigo
-		//printf("Movimientos   : %s\n", pot[...][...]);
+		
+		// si existe camino entre los dos nodos sacaremos por pantalla su longitud y los movimientos
+		if (strcmp(pot[eIni][eFin], "") != 0) {
+        		printf("Longitud mínima k = %d\n", k);
+        		printf("Movimientos: %s\n", pot[eIni][eFin]);
+    		} else {
+        		printf("No existe camino entre esos nodos.\n");
+    		}
+    		
 		printf("Nodo final    : %s\n", estadoFin);
 	}
-
 	return error;
 }

@@ -451,8 +451,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "th_plantilla.l"
-#line 2 "th_plantilla.l"
+#line 1 "th.l"
+#line 2 "th.l"
 #include<string.h>
 #include "y.tab.h"
 #line 459 "lex.yy.c"
@@ -673,7 +673,7 @@ YY_DECL
 		}
 
 	{
-#line 7 "th_plantilla.l"
+#line 7 "th.l"
 
 #line 679 "lex.yy.c"
 
@@ -734,68 +734,68 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 8 "th_plantilla.l"
+#line 8 "th.l"
 {return(GRAFO);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 9 "th_plantilla.l"
+#line 9 "th.l"
 {return(INI);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 10 "th_plantilla.l"
+#line 10 "th.l"
 {return(FIN);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 11 "th_plantilla.l"
+#line 11 "th.l"
 {yylval.nombre=strdup(yytext); return(ESTADO);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 12 "th_plantilla.l"
+#line 12 "th.l"
 {return(FLECHA);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 13 "th_plantilla.l"
+#line 13 "th.l"
 {return(IPAR);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 14 "th_plantilla.l"
+#line 14 "th.l"
 {return(FPAR);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 15 "th_plantilla.l"
+#line 15 "th.l"
 {return(COMA);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 16 "th_plantilla.l"
+#line 16 "th.l"
 {return(PCOMA);}
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 17 "th_plantilla.l"
+#line 17 "th.l"
 {return(EOL);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 18 "th_plantilla.l"
+#line 18 "th.l"
 {} // para ignorar posibles espacios
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 19 "th_plantilla.l"
+#line 19 "th.l"
 {return(yytext[0]); /* caracter inesperado */}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 20 "th_plantilla.l"
+#line 20 "th.l"
 ECHO;
 	YY_BREAK
 #line 802 "lex.yy.c"
@@ -1803,7 +1803,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 20 "th_plantilla.l"
+#line 20 "th.l"
 
 					//ejemplo de uso de yylval para tokens a los que se
 					//les ha cambiado su valor semantico en th.y
