@@ -1,3 +1,5 @@
+ //Autores : Víctor Marteles Martínez NIP : 928927 ; Javier Martínez Virto NIP : 930853
+/* th.l fichero para la practica 4 de Teoria de la Computacion */
 %{
 #include<string.h>
 #include "y.tab.h"

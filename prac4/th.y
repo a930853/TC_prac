@@ -1,3 +1,5 @@
+ //Autores : Víctor Marteles Martínez NIP : 928927 ; Javier Martínez Virto NIP : 930853
+/* th.y fichero para la practica 4 de Teoria de la Computacion */
 %{
 #include <stdio.h>
 #include <string.h>
@@ -138,10 +140,10 @@ int main() {
 	iniTabla(tablaTr);
 
 	//nodo inicial
-	char* estadoIni = "000";
+	char* estadoIni = "111";
 
 	//nodo final
-	char* estadoFin = "212";
+	char* estadoFin = "220";
 	
 	int error = yyparse();
 
@@ -167,7 +169,7 @@ int main() {
 		// buscamos la potencia mínima tal que pot[i][j] != ""
 		while (strcmp(pot[eIni][eFin], "") == 0 && k < DIM) {
         		multiplicar(tablaTr, anterior, pot);  // pot = C * C^(k-1)
-        		copiar(pot, anterior);                 // anterior = C^k
+        		copiar(pot, anterior);                 // anterior = C^(k-1)
         		k++;
    		}
 		
@@ -177,7 +179,6 @@ int main() {
 		
 		// si existe camino entre los dos nodos sacaremos por pantalla su longitud y los movimientos
 		if (strcmp(pot[eIni][eFin], "") != 0) {
-        		printf("Longitud mínima k = %d\n", k);
         		printf("Movimientos: %s\n", pot[eIni][eFin]);
     		} else {
         		printf("No existe camino entre esos nodos.\n");
